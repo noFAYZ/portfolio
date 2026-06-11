@@ -15,7 +15,7 @@ export function Experience() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.5 }}
-        className="border-border relative rounded-xl border px-3 pt-6 pb-4"
+        className="border-border relative rounded-xl border px-3 pt-6 pb-4 dark:bg-muted"
       >
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-2xl">
           <div className="bg-foreground/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-3xl" />
