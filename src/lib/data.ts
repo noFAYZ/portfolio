@@ -1,6 +1,6 @@
 import IconicIcon from "../assets/iconic.jpg"
 import IqeraIcon from "../assets/iqera.png"
-import MoneyMapprImage from "../assets/projects/moneymappr.jpg"
+import MoneyMapprImage from "../assets/projects/moneymappr.JPG"
 import FlexImage from "../assets/projects/flex.jpg"
 import AceMinersImage from "../assets/projects/aceminers.PNG"
 import AoteImage from "../assets/projects/aote.PNG"
