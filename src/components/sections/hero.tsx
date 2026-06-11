@@ -7,7 +7,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip"
 import { profile } from "@/lib/data"
-import SufiLogo from "@/assets/sufi.svg"
+import ProfileImage from "@/assets/profile/3.jpeg"
 import HeroBg from "@/assets/5.jpg"
 
 const socialLinks = [
@@ -39,17 +39,33 @@ export function Hero() {
         <div className="from-background/5 via-background/80 to-background absolute inset-0 bg-gradient-to-b" />
       </div>
 
-      <motion.img
-        src={SufiLogo}
-        alt=""
-        className="mb-2 h-20 w-20"
+      <motion.div
+        className="group relative mb-4"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-      />
+      >
+        {/* soft glow behind the avatar */}
+        <div className="bg-foreground/10 absolute inset-0 -z-10 scale-105 rounded-[3rem] blur-2xl" />
+
+        {/* slow-spinning dashed orbit */}
+        <div
+          aria-hidden
+          className="border-foreground/20 absolute -inset-2 animate-[spin_16s_linear_infinite] rounded-full border border-dashed"
+        />
+
+        <div className="border-background ring-border/60 group-hover:ring-foreground/30 relative h-20 w-20 overflow-hidden rounded-full border-2 shadow-lg ring-1 transition-all duration-200 group-hover:scale-110  ">
+          <img
+            src={ProfileImage}
+            alt={profile.name}
+            className="h-full w-full object-cover grayscale transition-all duration-300 group-hover:grayscale-0"
+          />
+        </div>
+
+      </motion.div>
 
       <motion.h1
-        className="text-3xl font-semibold tracking-tight sm:text-4xl"
+        className="text-3xl font-bold tracking-tight sm:text-4xl"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5 }}
