@@ -12,12 +12,6 @@ import {
 import { cn } from "@/lib/utils"
 import { projects } from "@/lib/data"
 
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  })
-
 const INITIAL_COUNT = 4
 
 export function Projects() {

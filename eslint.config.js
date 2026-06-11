@@ -21,4 +21,13 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // ShadCN-style files export variants/hooks alongside their component
+    // (buttonVariants, badgeVariants, useTheme); editing them falls back to a
+    // full reload instead of fast refresh, which is fine for primitives.
+    files: ['src/components/ui/**/*.tsx', 'src/components/theme-provider.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])
