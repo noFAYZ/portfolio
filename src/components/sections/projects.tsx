@@ -19,7 +19,7 @@ export function Projects() {
   const featured = showAll ? projects : projects.slice(0, INITIAL_COUNT)
 
   return (
-    <section id="projects" className="mx-auto w-full max-w-md px-6 py-12">
+    <section id="projects" className="mx-auto w-full max-w-3xl px-6 py-12">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export function Projects() {
           Projects
         </span>
 
-        <div className="grid grid-cols-1 gap-4    ">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2   ">
           {featured.map((project, i) => (
             <motion.div
               key={project.title}
@@ -46,15 +46,15 @@ export function Projects() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: (i % 3) * 0.08, duration: 0.2 }}
             >
-              <Card className="group/project  border-b  bg-muted  relative flex   w-full flex-col gap-0 overflow-hidden rounded-none   p-0  transition-all duration-100 hover:-translate-y-1 hover:shadow-lg hover:border">
+              <Card className="group/project  border-b  bg-muted   relative flex   w-full flex-col gap-0 overflow-hidden rounded-2xl border shadow-xs p-0  transition-all duration-100 hover:-translate-y-1 hover:shadow-lg hover:border">
                 {/* image — visible by default */}
-                <div className=" p-2 rounded-xl">
+                <div className="  p-2  ">
                   {project.image ? (
                     <img
                       src={project.image}
                       alt={project.title}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-200 ease-out group-hover/project:scale-102 rounded-lg shadow-inner"
+                      className="h-full w-full object-cover transition-transform duration-200 ease-out group-hover/project:scale-102 rounded-xl shadow-inner"
                     />
                   ) : (
                     <div className="bg-muted text-muted-foreground/50 flex h-full w-full items-center justify-center bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:14px_14px]">
@@ -66,22 +66,9 @@ export function Projects() {
 
                 {/* default state — title + skill icons over the image */}
                 <div className="relative flex   flex-col justify-between px-4 py-2 transition-opacity duration-200 group-focus-within/project:opacity-0 group-hover/project:opacity-0">
-                  <div className="flex items-start justify-between gap-2">
-                    {project.featured ? (
-                      <Badge className="gap-1 text-[10px] shadow-sm">
-                        <Icon icon="lucide:sparkles" className="h-2.5 w-2.5" />
-                        Featured
-                      </Badge>
-                    ) : (
-                      <span />
-                    )}
-                    <span className="bg-background/70 text-muted-foreground rounded-md px-1.5 py-0.5 font-mono text-[10px] font-medium backdrop-blur-sm">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-
+         
                   <div className="flex flex-col gap-2">
-                    <CardTitle className="text-lg  ">
+                    <CardTitle className="text-md  ">
                       {project.title}
                     </CardTitle>
                     <div className="flex flex-wrap gap-1">
