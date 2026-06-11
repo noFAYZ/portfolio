@@ -185,17 +185,6 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/nofayz/deflexy",
   },
   {
-    title: "A.O.T.E. NFT Collection",
-    date: "2023-08-15",
-    description:
-      "Manga-inspired NFT collection with unique character abilities and storylines.",
-    image: AoteImage,
-    icon: "lucide:swords",
-    tags: tags("ethers.js", "React", "Next.js", "PostgreSQL", "NFTs"),
-    liveUrl: "https://aote.vercel.app/",
-    repoUrl: "https://github.com/nofayz",
-  },
-  {
     title: "Ace Miners Rewards",
     date: "2022-08-30",
     description:
@@ -215,6 +204,17 @@ export const projects: Project[] = [
     icon: "lucide:store",
     tags: tags("Solidity", "React", "Next.js", "IPFS", "Web3.js", "dApp"),
     liveUrl: "http://orcafi.io/p",
+    repoUrl: "https://github.com/nofayz",
+  },
+  {
+    title: "A.O.T.E. NFT Collection",
+    date: "2023-08-15",
+    description:
+      "Manga-inspired NFT collection with unique character abilities and storylines.",
+    image: AoteImage,
+    icon: "lucide:swords",
+    tags: tags("ethers.js", "React", "Next.js", "PostgreSQL", "NFTs"),
+    liveUrl: "https://aote.vercel.app/",
     repoUrl: "https://github.com/nofayz",
   },
   {

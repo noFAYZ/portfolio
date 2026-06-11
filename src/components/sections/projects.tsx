@@ -12,20 +12,20 @@ import {
 import { cn } from "@/lib/utils"
 import { projects } from "@/lib/data"
 
-const INITIAL_COUNT = 4
+const INITIAL_COUNT = 6
 
 export function Projects() {
   const [showAll, setShowAll] = useState(false)
   const featured = showAll ? projects : projects.slice(0, INITIAL_COUNT)
 
   return (
-    <section id="projects" className="mx-auto w-full max-w-3xl px-6 py-12">
+    <section id="projects" className="mx-auto w-full max-w-5xl px-6 py-12">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.2 }}
-        className="border-border relative rounded-xl border px-3 py-4"
+        className="border-border relative rounded-xl border px-3 py-4 bg-muted"
       >
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-2xl">
           <div className="bg-foreground/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-3xl" />
@@ -37,7 +37,7 @@ export function Projects() {
           Projects
         </span>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2   ">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3  ">
           {featured.map((project, i) => (
             <motion.div
               key={project.title}
@@ -89,7 +89,7 @@ export function Projects() {
                 </div>
 
                 {/* details — revealed on hover / keyboard focus */}
-                <div className="bg-background/85 pointer-events-none absolute inset-0 z-10 flex flex-col gap-3 p-8 opacity-0 backdrop-blur-md transition-opacity duration-100 group-focus-within/project:pointer-events-auto group-focus-within/project:opacity-100 group-hover/project:pointer-events-auto group-hover/project:opacity-100">
+                <div className="bg-background/85 pointer-events-none absolute inset-0 z-10 flex flex-col gap-3 p-4 opacity-0 backdrop-blur-md transition-opacity duration-100 group-focus-within/project:pointer-events-auto group-focus-within/project:opacity-100 group-hover/project:pointer-events-auto group-hover/project:opacity-100">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-2.5">
                       <div className="bg-muted text-muted-foreground flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
