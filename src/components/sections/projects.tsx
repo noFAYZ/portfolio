@@ -24,7 +24,7 @@ export function Projects() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.2 }}
-        className="border-border relative rounded-xl border px-3 py-4 bg-muted shadow-inner"
+        className="border-border relative rounded-xl border px-3 py-4  "
       >
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-2xl">
           <div className="bg-foreground/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-3xl" />
@@ -88,7 +88,7 @@ export function Projects() {
                 </div>
 
                 {/* details — revealed on hover / keyboard focus */}
-                <div className="bg-background/85 pointer-events-none absolute inset-0 z-10 flex flex-col gap-3 p-4 opacity-0 backdrop-blur-md transition-opacity duration-100 group-focus-within/project:pointer-events-auto group-focus-within/project:opacity-100 group-hover/project:pointer-events-auto group-hover/project:opacity-100">
+                <div className="bg-muted/85 pointer-events-none absolute inset-0 z-10 flex flex-col gap-3 p-4 opacity-0 backdrop-blur-md transition-opacity duration-100 group-focus-within/project:pointer-events-auto group-focus-within/project:opacity-100 group-hover/project:pointer-events-auto group-hover/project:opacity-100">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-2.5">
                       <div className="bg-muted text-muted-foreground flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
@@ -170,7 +170,7 @@ export function Projects() {
               <Icon
                 icon="lucide:chevron-down"
                 className={cn(
-                  "transition-transform duration-300",
+                  "transition-transform duration-200",
                   showAll && "rotate-180"
                 )}
               />

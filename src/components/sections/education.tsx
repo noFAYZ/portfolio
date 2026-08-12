@@ -1,17 +1,15 @@
 import { motion } from "motion/react"
 import { Icon } from "@iconify/react"
 import { education } from "@/lib/data"
+import { rise, stagger } from "@/lib/motion"
 import FastLogoIcon from "@/assets/FAST.png"
 
 export function Education() {
   return (
-    <section id="education" className="mx-auto w-fit max-w-md px-6 py-6">
+    <section id="education" className="mx-auto w-full max-w-md px-6 py-6">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
-        className="border-border relative rounded-xl border px-3 py-2 dark:bg-muted"
+        {...rise()}
+        className="border-border bg-background dark:bg-muted relative rounded-xl border px-3 py-4"
       >
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-2xl">
           <div className="bg-foreground/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-3xl" />
@@ -26,10 +24,7 @@ export function Education() {
           {education.map((item, i) => (
             <motion.div
               key={item.degree + item.school}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.06, duration: 0.4 }}
+              {...rise(0.08 + i * stagger)}
               className="group relative flex items-center gap-3"
             >
               <div className="flex flex-col items-center self-stretch">

@@ -7,24 +7,24 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip"
 import { profile } from "@/lib/data"
-import ProfileImage from "@/assets/profile/3.jpeg"
-import HeroBg from "@/assets/5.jpg"
+import { rise, stagger } from "@/lib/motion"
+import HeroBg from "@/assets/extra.gif"
 
 const socialLinks = [
   {
     label: "GitHub",
     href: profile.social.github,
-    icon: "lucide:github",
+    icon: "pixel:github",
   },
   {
     label: "LinkedIn",
     href: profile.social.linkedin,
-    icon: "lucide:linkedin",
+    icon: "pixel:linkedin",
   },
   {
     label: "Email",
     href: `mailto:${profile.email}`,
-    icon: "lucide:mail",
+    icon: "pixel:at",
   },
 ]
 
@@ -32,23 +32,23 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[40vh] w-full flex-col items-center justify-center overflow-hidden px-6    text-center  "
+      className="relative isolate flex min-h-[26vh] w-full flex-col items-center justify-end overflow-hidden px-6    text-center  "
     >
       <div className="absolute inset-0 -z-10">
-        <img src={HeroBg} alt="" className="h-full w-full object-cover" />
+        <img src={HeroBg} alt="" className="h-full w-full object-cover " />
         <div className="from-background/5 via-background/80 to-background absolute inset-0 bg-gradient-to-b" />
       </div>
 
-      <motion.div
+{/*       <motion.div
         className="group relative mb-4"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {/* soft glow behind the avatar */}
+     
         <div className="bg-foreground/10 absolute inset-0 -z-10 scale-105 rounded-[3rem] blur-2xl" />
 
-        {/* slow-spinning dashed orbit */}
+    
         <div
           aria-hidden
           className="border-foreground/20 absolute -inset-2 animate-[spin_16s_linear_infinite] rounded-full border border-dashed"
@@ -62,33 +62,27 @@ export function Hero() {
           />
         </div>
 
-      </motion.div>
+      </motion.div> */}
 
       <motion.h1
         className="text-3xl font-bold tracking-tight sm:text-4xl"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
+        {...rise()}
       >
         {profile.name}
       </motion.h1>
 
       <motion.p
         className="font-heading text-muted-foreground mt-1.5 text-sm sm:text-base"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
+        {...rise(stagger)}
       >
         {profile.role}
       </motion.p>
 
       <motion.div
         className="mt-5 flex flex-wrap items-center justify-center gap-2"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.4 }}
+        {...rise(stagger * 2)}
       >
-        <Button size="sm" render={<a href="#projects" />}>
+ {/*     <Button size="sm" render={<a href="#projects" />}>
           <Icon icon="lucide:folder-code" />
           Projects
         </Button>
@@ -96,21 +90,22 @@ export function Hero() {
           <Icon icon="lucide:send" />
           Contact
         </Button>
-
+ */}
         <div className="ml-1 flex items-center gap-0.5">
           {socialLinks.map((link) => (
             <Tooltip key={link.label}>
               <TooltipTrigger
                 render={
                   <Button
-                    variant="ghost"
-                    size="icon-sm"
+                    variant="link"
+                    size="sm"
                     aria-label={link.label}
                     render={
                       <a href={link.href} target="_blank" rel="noreferrer" />
                     }
                   >
                     <Icon icon={link.icon} className="h-3.5 w-3.5" />
+                    {link.label}
                   </Button>
                 }
               />

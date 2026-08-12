@@ -12,6 +12,11 @@ import PortfolioImage from "../assets/projects/portfolio.png"
 import SwapImage from "../assets/projects/swap.jpg"
 import OrcafiImage from "../assets/projects/orcafi.PNG"
 import OceanMoneyImage from "../assets/projects/ocean.money.PNG"
+import ZunoImage from "../assets/projects/zuno.png"
+import ZunoHomeDarkImage from "../assets/blog/zuno-home-dark.png"
+import ZunoHomeLightImage from "../assets/blog/zuno-home-light.png"
+import ZunoQueueImage from "../assets/blog/zuno-queue.png"
+import ZunoSettingsImage from "../assets/blog/zuno-settings.png"
 export const profile = {
   name: "Faizan Asad",
   role: "Software Engineer",
@@ -111,6 +116,7 @@ export type Project = {
   liveUrl?: string
   repoUrl?: string
   featured?: boolean
+  openSource?: boolean
 }
 
 const tagIcons: Record<string, string> = {
@@ -133,12 +139,29 @@ const tagIcons: Record<string, string> = {
   "Socket.io": "devicon:socketio",
   NFTs: "ri:nft-line",
   dApp: "lucide:boxes",
+  TypeScript: "vscode-icons:file-type-typescript-official",
+  Rust: "vscode-icons:file-type-rust",
+  Tauri: "devicon:tauri",
+  Vite: "vscode-icons:file-type-vite",
 }
 
 const tags = (...names: string[]) =>
   names.map((name) => ({ name, icon: tagIcons[name] ?? "lucide:tag" }))
 
 export const projects: Project[] = [
+  {
+    title: "Zuno",
+    date: "2025-11-01",
+    description:
+      "A fast, native-feeling desktop client for YouTube Music — offline downloads, synced lyrics, mini player. Windows, macOS and Linux.",
+    image: ZunoImage,
+    icon: "lucide:music",
+    tags: tags("Tauri", "Rust", "React", "TypeScript", "Vite"),
+    liveUrl: "https://zuno.fayzan.xyz",
+    repoUrl: "https://github.com/noFAYZ/zuno",
+    featured: true,
+    openSource: true,
+  },
   {
     title: "MoneyMappr | Financial portfolio",
     date: "2025-02-15",
@@ -270,6 +293,73 @@ export const projects: Project[] = [
     tags: tags("React", "Next.js", "Solidity", "Web3.js", "IPFS"),
     liveUrl: "https://data-viz-dashboard-demo.vercel.app",
     repoUrl: "https://github.com/yourusername/data-viz-dashboard",
+  },
+]
+
+/** A paragraph, a "## heading", a screenshot, or a bullet list. */
+export type Block =
+  | string
+  | { image: string; caption?: string }
+  | { list: string[] }
+
+export type Post = {
+  slug: string
+  title: string
+  date: string
+  description: string
+  image?: string
+  readingTime?: string
+  /** set only for posts published elsewhere — links out instead of to /blog/:slug */
+  url?: string
+  content?: Block[]
+}
+
+// ponytail: hand-edited list — swap for an RSS/CMS fetch only if you start posting often
+export const posts: Post[] = [
+  {
+    slug: "zuno-case-study",
+    title: "Zuno: building a desktop client for YouTube Music",
+    date: "2026-08-13",
+    description:
+      "A case study on Zuno — why a browser tab was the wrong home for a music library, and what it took to ship a native client to Windows, macOS and Linux.",
+    image: ZunoHomeDarkImage,
+    readingTime: "5 min",
+    content: [
+      "For years my music lived in a browser tab. The one you must not close. The one that dies with the browser. The one whose media keys stop working the moment another window takes focus. YouTube Music has the catalogue and the recommendations — it just has no home on the desktop.",
+      "Zuno is that home: a YouTube Music client built with Tauri, React and TypeScript, running on Windows, macOS and Linux. It started as a fork of JustAnotherMusicClient and has since grown into its own app.",
+
+      "## Why Tauri, not Electron",
+      "The frontend was going to be a web app either way. Electron would have bundled a browser with every download; Tauri borrows the one the operating system already ships. What's left is a small Rust process for the parts that genuinely need the machine — filesystem, tray, media keys, updater.",
+      "The trade is real. You inherit each platform's web view instead of controlling it, so one build meets three engines. That's the thing I'd weigh hardest before recommending this stack to anyone else.",
+
+      "## A music app is a browsing app",
+      "Tabs are the feature I use most and the one people are most surprised by. Queue an album in one, read an artist page in another, dig through a playlist in a third. Playback doesn't stop because you wandered off to look at something.",
+      { image: ZunoQueueImage, caption: "Queue open alongside the library." },
+      "The rest of the surface follows from that: search, browse, recommendations, likes and dislikes, batch actions on a selection, queue control, playlist import and export, and local files for what streaming doesn't carry.",
+
+      "## Living on the desktop",
+      "Native integration is most of what separates Zuno from the tab it replaces.",
+      {
+        list: [
+          "Media keys, system tray and a mini player",
+          "Discord rich presence and Last.fm scrobbling",
+          "Offline downloads, plus caching for a bad connection",
+          "Synced lyrics with inline translation",
+          "Light and dark themes",
+          "Updates that install themselves",
+        ],
+      },
+      {
+        image: ZunoSettingsImage,
+        caption: "Settings — themes, integrations, downloads.",
+      },
+      "Lyrics are what people write to me about. They follow playback and translate inline, which is how I learned how badly I'd misheard half the songs I keep on repeat.",
+      { image: ZunoHomeLightImage, caption: "Light theme, same layout." },
+
+      "## Shipping to three platforms",
+      "Three platforms means three sets of packaging rules, and that's where the unglamorous work went: installers for Windows, macOS and Linux, an AUR package for Arch, and in-place updates once any of them is installed.",
+      "Zuno is Apache 2.0 and the source is on GitHub. Architecture, frontend and backend notes live in the docs folder if you'd rather read how the pieces fit before cloning it.",
+    ],
   },
 ]
 

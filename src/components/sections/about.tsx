@@ -1,29 +1,26 @@
 import { motion } from "motion/react"
+import { fadeUp } from "@/lib/motion"
 
 export function About() {
   return (
     <section id="about" className="mx-auto w-full max-w-xl px-6 py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
-      >
+      <motion.div {...fadeUp()} className="text-center">
         <p className="text-sm leading-relaxed sm:text-base">
           I'm a full-stack developer who turns{" "}
-          <span className="font-heading font-semibold text-foreground">
+          <span className="font-heading text-foreground font-semibold">
             complex problems
           </span>{" "}
           into{" "}
-          <span className="font-heading font-semibold text-foreground">
-            simple, elegant
+          <span className="font-heading text-foreground font-semibold">
+            simple, robust
           </span>{" "}
-          solutions — from pixel-perfect interfaces to robust APIs and
-          databases.
+          solutions — pixel-perfect interfaces, APIs that hold up, and Web3
+          systems that have moved{" "}
+          <span className="font-heading text-foreground font-semibold">
+            $3M+ on-chain
+          </span>
+          .
         </p>
- 
-  
       </motion.div>
     </section>
   )
