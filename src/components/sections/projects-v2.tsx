@@ -36,11 +36,6 @@ const stages = [
   },
 ]
 
-const year = (date?: string) => {
-  const y = date ? new Date(date).getFullYear() : NaN
-  return Number.isNaN(y) ? null : y
-}
-
 // ponytail: unauthenticated API, 60 req/hr per IP — plenty for 4 cards, no token to leak
 function useStars(repoUrl?: string) {
   const [stars, setStars] = useState<number | null>(null)
@@ -75,7 +70,6 @@ export function ProjectRow({
 }) {
   const repoUrl = isLive(project.repoUrl) ? project.repoUrl : undefined
   const liveUrl = isLive(project.liveUrl) ? project.liveUrl : undefined
-  const released = year(project.date)
   const stars = useStars(repoUrl)
   const flipped = index % 2 === 1
   const stage = stages[index % stages.length]
