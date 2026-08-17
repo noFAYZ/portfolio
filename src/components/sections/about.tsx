@@ -14,7 +14,7 @@ export function About() {
           <span className="font-heading text-foreground font-semibold">
             simple, robust
           </span>{" "}
-          solutions — pixel-perfect interfaces, APIs that hold up, and Web3
+          solutions pixel-perfect interfaces, APIs that hold up, and Web3
           systems that have moved{" "}
           <span className="font-heading text-foreground font-semibold">
             $3M+ on-chain
