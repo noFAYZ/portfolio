@@ -23,12 +23,10 @@ export const profile = {
   tagline:
     "I build fast, accessible, and well-crafted web apps from idea to deployment.",
   location: "Islamabad, Pakistan",
-  email: "m.faizanasad97@gmail.com",
+  email: "hello@fayzan.xyz",
   resumeUrl: "/resume.pdf",
   social: {
-    github: "https://github.com/your-username",
-    linkedin: "https://linkedin.com/in/your-username",
-    twitter: "https://x.com/your-username",
+    github: "https://github.com/noFAYZ",
   },
 }
 

@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip"
+import { SectionStamp } from "@/components/section-stamp"
 import { projects, type Project } from "@/lib/data"
 import { fadeUp, stagger } from "@/lib/motion"
 
@@ -82,24 +83,25 @@ export function ProjectRow({
   return (
     <motion.article
       {...fadeUp()}
-      className={`group relative flex flex-col border border-border  gap-2 md:flex-row md:items-center md:gap-10 ${
+      style={{ skewX: -12 }}
+      className={`group relative flex flex-col gap-2 md:flex-row md:items-center md:gap-6 ${
         flipped ? "md:flex-row-reverse" : ""
       }`}
     >
-      <div className="relative w-full shrink-0 md:w-1/2">
-    
+      <div className="relative w-full shrink-0 md:w-1/3">
+
         <div
-          className={`  relative overflow-hidden  bg-gradient-to-br p-3 ring-inset sm:p-4 ${stage.bg}`}
+          className={`  relative bg-gradient-to-br  ring-inset  ${stage.bg}`}
         >
           {project.image ? (
             <img
               src={project.image}
               alt=""
               loading="lazy"
-              className="relative block aspect-1405/1014 w-full rounded object-cover shadow-xl transition-[transform,box-shadow] duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:shadow-2xl"
+              className="relative block aspect-1405/1014 w-80 skew-x-12 rounded object-cover shadow-xl transition-[transform,box-shadow] duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:shadow-2xl"
             />
           ) : (
-            <div className="bg-background/40 text-muted-foreground grid aspect-1405/1014 w-full place-items-center rounded shadow-xl backdrop-blur-sm transition-transform duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02]">
+            <div className="bg-background/40 text-muted-foreground grid aspect-1405/1014 w-full skew-x-12 place-items-center rounded shadow-xl backdrop-blur-sm transition-transform duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02]">
               <Icon
                 icon={project.icon || "lucide:folder"}
                 className="h-12 w-12"
@@ -109,27 +111,26 @@ export function ProjectRow({
         </div>
       </div>
 
-      <div className="md:w-1/2 p-4">
-        
+      <div className="skew-x-12 md:w-1/2 p-4 sm:p-5">
 
-        <h3 className="font-heading mt-1.5 text-3xl font-bold tracking-tight">
+        <h3 className="font-heading text-lg font-bold tracking-tight">
           {project.title}
         </h3>
 
         {project.description && (
-          <p className="text-muted-foreground mt-2 max-w-prose text-sm leading-relaxed">
+          <p className="text-muted-foreground mt-1 line-clamp-2 max-w-prose text-sm leading-relaxed">
             {project.description}
           </p>
         )}
 
         {project.tags?.length > 0 && (
-          <div className="mt-3 flex flex-wrap items-center gap-2">
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
             {project.tags.map((tag) => (
               <Tooltip key={tag.name}>
                 <TooltipTrigger
                   render={
                     <span className="cursor-default">
-                      <Icon icon={tag.icon} className="h-5 w-5" />
+                      <Icon icon={tag.icon} className="h-4 w-4" />
                     </span>
                   }
                 />
@@ -139,7 +140,7 @@ export function ProjectRow({
           </div>
         )}
 
-        <div className="mt-4 flex flex-wrap items-center gap-2">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           {liveUrl && (
             <Button
               size="sm"
@@ -167,7 +168,7 @@ export function ProjectRow({
             <Tooltip>
               <TooltipTrigger
                 render={
-                  <span className="  absolute top-2 right-3 border-border text-muted-foreground flex py-0.5 cursor-default items-center gap-1 shadow-xs border px-1.5 text-xs tabular-nums">
+                  <span className="  absolute top-2 right-3 skew-x-12 border-border text-muted-foreground flex py-0.5 cursor-default items-center gap-1 shadow-xs border px-1.5 text-xs tabular-nums">
                     <Icon
                       icon="fluent-color:star-48"
                       className="h-4 w-4 text-orange-500"
@@ -182,7 +183,7 @@ export function ProjectRow({
           )}
 
                {project.openSource && (
-            <span className=" absolute top-2 right-20 text-xs text-muted-foreground border px-1.5 shadow-xs py-0.5 flex items-center gap-1">
+            <span className=" absolute top-2 right-20 skew-x-12 text-xs text-muted-foreground border px-1.5 shadow-xs py-0.5 flex items-center gap-1">
               <Icon icon="lucide:git-fork" className="h-3 w-3" />
               open source
             </span>
@@ -191,20 +192,25 @@ export function ProjectRow({
   )
 }
 
+const PREVIEW_COUNT = 3
+
 function ProjectsV2() {
-  const featured = useMemo(
-    () =>
-      projects
-        .filter((p) => p.featured)
-        .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "")),
-    []
-  )
+  const featured = useMemo(() => {
+    const byDateDesc = (a: Project, b: Project) =>
+      (b.date ?? "").localeCompare(a.date ?? "")
+    // featured projects first, padded with the next most recent so the
+    // preview always shows PREVIEW_COUNT even if fewer are flagged featured
+    const picked = projects.filter((p) => p.featured).sort(byDateDesc)
+    const rest = projects.filter((p) => !p.featured).sort(byDateDesc)
+    return [...picked, ...rest].slice(0, PREVIEW_COUNT)
+  }, [])
 
   return (
     <section
       id="projects"
-      className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-12 sm:px-8"
+      className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-12 sm:px-8"
     >
+      <SectionStamp index={2}>Projects</SectionStamp>
       {featured.map((project, i) => (
         <ProjectRow key={project.title} project={project} index={i} />
       ))}
@@ -213,13 +219,15 @@ function ProjectsV2() {
         <Button
           variant="outline"
           render={<Link to="/projects" />}
-          className="group/all"
+          className="group/all rounded-none -skew-x-12"
         >
-          View all {projects.length} projects
-          <Icon
-            icon="lucide:arrow-right"
-            className="transition-transform duration-150 ease-out group-hover/all:translate-x-0.5"
-          />
+          <span className="flex skew-x-12 items-center gap-1.5">
+            View all {projects.length} projects
+            <Icon
+              icon="lucide:arrow-right"
+              className="transition-transform duration-150 ease-out group-hover/all:translate-x-0.5"
+            />
+          </span>
         </Button>
       </motion.div>
     </section>

@@ -33,31 +33,33 @@ export function Details() {
                 <button
                   type="button"
                   aria-label={`Open ${panel.label}`}
-                  className="group border-border rounded-none shadow-xs hover:shadow-none bg-card text-muted-foreground hover:border-foreground/20 hover:bg-muted hover:text-foreground focus-visible:ring-ring flex cursor-pointer items-center gap-2 rounded-full border py-1 pr-1.5 pl-3 text-xs transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-none"
+                  className="group border-border -skew-x-12 shadow-xs hover:shadow-none bg-card text-muted-foreground hover:border-foreground/20 hover:bg-muted hover:text-foreground focus-visible:ring-ring flex cursor-pointer items-center rounded-none border py-1 pr-1.5 pl-3 text-xs transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-none"
                 />
               }
             >
-              <Icon icon={panel.icon} className="h-3.5 w-3.5" />
-              <span className="font-medium">{panel.label}</span>
+              <span className="flex skew-x-12 items-center gap-2">
+                <Icon icon={panel.icon} className="h-3.5 w-3.5" />
+                <span className="font-medium">{panel.label}</span>
 
-              {/* who's inside, stacked like a deck — fans out on hover */}
-              <span className="flex -space-x-2 [&>*]:transition-[margin] [&>*]:duration-150 [&>*]:ease-out group-hover:-space-x-0.5">
-                {panel.logos.map((logo, i) => (
-                  <span
-                    key={i}
-                    className="border-background bg-muted text-muted-foreground grid h-5 w-5 place-items-center overflow-hidden rounded-full border grayscale transition-[filter] duration-150 group-hover:grayscale-0"
-                  >
-                    {logo.includes(":") ? (
-                      <Icon icon={logo} className="h-3 w-3" />
-                    ) : (
-                      <img
-                        src={logo}
-                        alt=""
-                        className="h-full w-full object-cover"
-                      />
-                    )}
-                  </span>
-                ))}
+                {/* who's inside, stacked like a deck — fans out on hover */}
+                <span className="flex -space-x-2 [&>*]:transition-[margin] [&>*]:duration-150 [&>*]:ease-out group-hover:-space-x-0.5">
+                  {panel.logos.map((logo, i) => (
+                    <span
+                      key={i}
+                      className="border-background bg-muted text-muted-foreground grid h-5 w-5 place-items-center overflow-hidden rounded-full border grayscale transition-[filter] duration-150 group-hover:grayscale-0"
+                    >
+                      {logo.includes(":") ? (
+                        <Icon icon={logo} className="h-3 w-3" />
+                      ) : (
+                        <img
+                          src={logo}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                    </span>
+                  ))}
+                </span>
               </span>
             </DialogTrigger>
 

@@ -9,17 +9,16 @@ import {
 import { profile } from "@/lib/data"
 import { rise, stagger } from "@/lib/motion"
 import HeroBg from "@/assets/extra.gif"
+import { Skills } from "./skills"
+import { About } from "./about"
+import { Details } from "./details"
+import { useTheme } from "../theme-provider"
 
 const socialLinks = [
   {
     label: "GitHub",
     href: profile.social.github,
     icon: "pixel:github",
-  },
-  {
-    label: "LinkedIn",
-    href: profile.social.linkedin,
-    icon: "pixel:linkedin",
   },
   {
     label: "Email",
@@ -29,17 +28,18 @@ const socialLinks = [
 ]
 
 export function Hero() {
+ const theme = useTheme().theme
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[26vh] w-full flex-col items-center justify-end overflow-hidden px-6    text-center  "
+      className="relative isolate flex min-h-[26vh] w-full flex-col items-center justify-end px-6 text-center lg:min-h-full"
     >
       <div className="absolute inset-0 -z-10">
         <img src={HeroBg} alt="" className="h-full w-full object-cover " />
         <div className="from-background/5 via-background/80 to-background absolute inset-0 bg-gradient-to-b" />
       </div>
 
-{/*       <motion.div
+      {/*       <motion.div
         className="group relative mb-4"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -82,7 +82,7 @@ export function Hero() {
         className="mt-5 flex flex-wrap items-center justify-center gap-2"
         {...rise(stagger * 2)}
       >
- {/*     <Button size="sm" render={<a href="#projects" />}>
+        {/*     <Button size="sm" render={<a href="#projects" />}>
           <Icon icon="lucide:folder-code" />
           Projects
         </Button>
@@ -113,6 +113,22 @@ export function Hero() {
             </Tooltip>
           ))}
         </div>
+      </motion.div>
+
+
+
+      <Details />
+      <About />
+      <Skills />
+
+      <motion.div {...rise(stagger * 3)} className="mt-4 w-full pb-12   px-6 bg-background">
+        <iframe
+           src={`https://jandi.firejune.io/nofayz?radius=3&margin=2&footer=false&weeks=false&scheme=${theme=='light'? 'light' : 'dark'} `}
+          title="GitHub contribution graph"
+          loading="lazy"
+          height={80}
+          className="w-full border-0 bg-background"
+        />
       </motion.div>
     </section>
   )
