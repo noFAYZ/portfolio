@@ -98,8 +98,8 @@ export const skillGroups = [
       },
       { name: "Git", icon: "vscode-icons:file-type-git", level: "Expert" },
       {
-        name: "Figma",
-        icon: "vscode-icons:file-type-figma",
+        name: "AWS",
+        icon: "vscode-icons:file-type-aws",
         level: "Intermediate",
       },
     ],

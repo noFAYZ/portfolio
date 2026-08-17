@@ -96,10 +96,10 @@ export function ProjectRow({
               src={project.image}
               alt=""
               loading="lazy"
-              className="relative block aspect-1405/1014 w-full rounded-xl object-cover shadow-xl transition-[transform,box-shadow] duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:shadow-2xl"
+              className="relative block aspect-1405/1014 w-full rounded object-cover shadow-xl transition-[transform,box-shadow] duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:shadow-2xl"
             />
           ) : (
-            <div className="bg-background/40 text-muted-foreground grid aspect-1405/1014 w-full place-items-center rounded-xl shadow-xl backdrop-blur-sm transition-transform duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02]">
+            <div className="bg-background/40 text-muted-foreground grid aspect-1405/1014 w-full place-items-center rounded shadow-xl backdrop-blur-sm transition-transform duration-150 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02]">
               <Icon
                 icon={project.icon || "lucide:folder"}
                 className="h-12 w-12"
@@ -110,17 +110,7 @@ export function ProjectRow({
       </div>
 
       <div className="md:w-1/2 p-4">
-        <div className="text-muted-foreground/60 flex items-center gap-2 text-[11px] tabular-nums">
-          <span>{String(index + 1).padStart(2, "0")}</span>
-          <span className="border-border/60 w-6 border-b" />
-          {released && <span>{released}</span>}
-          {project.openSource && (
-            <span className="text-muted-foreground flex items-center gap-1">
-              <Icon icon="lucide:git-fork" className="h-3 w-3" />
-              open source
-            </span>
-          )}
-        </div>
+        
 
         <h3 className="font-heading mt-1.5 text-3xl font-bold tracking-tight">
           {project.title}
@@ -177,7 +167,7 @@ export function ProjectRow({
             <Tooltip>
               <TooltipTrigger
                 render={
-                  <span className="  absolute top-2 right-3 border-border/60 text-muted-foreground flex h-6 cursor-default items-center gap-1 rounded-full border px-2 text-xs tabular-nums">
+                  <span className="  absolute top-2 right-3 border-border text-muted-foreground flex py-0.5 cursor-default items-center gap-1 shadow-xs border px-1.5 text-xs tabular-nums">
                     <Icon
                       icon="fluent-color:star-48"
                       className="h-4 w-4 text-orange-500"
@@ -189,6 +179,13 @@ export function ProjectRow({
               />
               <TooltipContent>GitHub stars</TooltipContent>
             </Tooltip>
+          )}
+
+               {project.openSource && (
+            <span className=" absolute top-2 right-20 text-xs text-muted-foreground border px-1.5 shadow-xs py-0.5 flex items-center gap-1">
+              <Icon icon="lucide:git-fork" className="h-3 w-3" />
+              open source
+            </span>
           )}
     </motion.article>
   )
@@ -206,7 +203,7 @@ function ProjectsV2() {
   return (
     <section
       id="projects"
-      className="mx-auto flex w-full max-w-5xl flex-col gap-14 px-4 py-12 sm:px-8"
+      className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-12 sm:px-8"
     >
       {featured.map((project, i) => (
         <ProjectRow key={project.title} project={project} index={i} />

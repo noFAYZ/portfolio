@@ -39,7 +39,7 @@ export function Blog() {
         <Link
           to={post.url ?? `/blog/${post.slug}`}
           {...(external ? { target: "_blank", rel: "noreferrer" } : undefined)}
-          className="group border-border/90 bg-card hover:border-border focus-visible:ring-ring relative block min-w-0 flex-1 -rotate-1 rounded-xl border p-2 transition-[transform,border-color] duration-150 ease-out hover:rotate-0 focus-visible:ring-2 focus-visible:outline-none"
+          className="group border-border bg-card hover:border-border focus-visible:ring-ring relative block min-w-0 flex-1 -rotate-1 shadow-sm border p-2 transition-[transform,border-color] duration-100 ease-out hover:rotate-0 focus-visible:ring-2 focus-visible:outline-none"
         >
           {/* a little piece of tape */}
           <span
@@ -54,7 +54,7 @@ export function Blog() {
             transition={{ duration: 0.25, ease }}
             className="flex gap-3"
           >
-            <div className="bg-muted text-muted-foreground/50 grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-lg">
+            <div className="bg-muted text-muted-foreground/50 grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded">
               {post.image ? (
                 <img
                   src={post.image}

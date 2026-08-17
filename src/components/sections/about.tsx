@@ -3,9 +3,9 @@ import { fadeUp } from "@/lib/motion"
 
 export function About() {
   return (
-    <section id="about" className="mx-auto w-full max-w-xl px-6 py-12">
+    <section id="about" className="mx-auto w-full max-w-2xl px-6 py-12">
       <motion.div {...fadeUp()} className="text-center">
-        <p className="text-sm leading-relaxed sm:text-lg">
+        <p className="text-sm  sm:text-lg">
           I'm a full-stack developer who turns{" "}
           <span className="font-heading text-foreground font-semibold">
             complex problems

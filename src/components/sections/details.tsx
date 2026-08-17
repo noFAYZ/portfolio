@@ -33,7 +33,7 @@ export function Details() {
                 <button
                   type="button"
                   aria-label={`Open ${panel.label}`}
-                  className="group border-border/60 bg-card text-muted-foreground hover:border-foreground/20 hover:bg-muted hover:text-foreground focus-visible:ring-ring flex cursor-pointer items-center gap-2 rounded-full border py-1 pr-1.5 pl-3 text-xs transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-none"
+                  className="group border-border rounded-none shadow-xs hover:shadow-none bg-card text-muted-foreground hover:border-foreground/20 hover:bg-muted hover:text-foreground focus-visible:ring-ring flex cursor-pointer items-center gap-2 rounded-full border py-1 pr-1.5 pl-3 text-xs transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-none"
                 />
               }
             >
