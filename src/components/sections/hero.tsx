@@ -65,14 +65,14 @@ export function Hero() {
       </motion.div> */}
 
       <motion.h1
-        className="text-3xl font-bold tracking-tight sm:text-4xl"
+        className="text-4xl font-bold tracking-tight sm:text-5xl"
         {...rise()}
       >
         {profile.name}
       </motion.h1>
 
       <motion.p
-        className="font-heading text-muted-foreground mt-1.5 text-sm sm:text-base"
+        className="font-heading text-muted-foreground mt-1.5 text-md sm:text-xl"
         {...rise(stagger)}
       >
         {profile.role}

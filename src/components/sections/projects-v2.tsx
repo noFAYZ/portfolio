@@ -82,19 +82,14 @@ export function ProjectRow({
   return (
     <motion.article
       {...fadeUp()}
-      className={`group flex flex-col gap-5 md:flex-row md:items-center md:gap-10 ${
+      className={`group relative flex flex-col border border-border  gap-2 md:flex-row md:items-center md:gap-10 ${
         flipped ? "md:flex-row-reverse" : ""
       }`}
     >
       <div className="relative w-full shrink-0 md:w-1/2">
-        {/* aurora glow bleeding out behind the stage */}
+    
         <div
-          aria-hidden
-          className={`absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br opacity-50 blur-2xl transition-opacity duration-150 ease-out group-hover:opacity-90 ${stage.glow}`}
-        />
-
-        <div
-          className={`ring-foreground/5 relative overflow-hidden rounded-2xl bg-gradient-to-br p-3 ring-1 ring-inset sm:p-4 ${stage.bg}`}
+          className={`  relative overflow-hidden  bg-gradient-to-br p-3 ring-inset sm:p-4 ${stage.bg}`}
         >
           {project.image ? (
             <img
@@ -114,7 +109,7 @@ export function ProjectRow({
         </div>
       </div>
 
-      <div className="md:w-1/2">
+      <div className="md:w-1/2 p-4">
         <div className="text-muted-foreground/60 flex items-center gap-2 text-[11px] tabular-nums">
           <span>{String(index + 1).padStart(2, "0")}</span>
           <span className="border-border/60 w-6 border-b" />
@@ -127,7 +122,7 @@ export function ProjectRow({
           )}
         </div>
 
-        <h3 className="font-heading mt-1.5 text-lg font-semibold tracking-tight">
+        <h3 className="font-heading mt-1.5 text-3xl font-bold tracking-tight">
           {project.title}
         </h3>
 
@@ -144,7 +139,7 @@ export function ProjectRow({
                 <TooltipTrigger
                   render={
                     <span className="cursor-default">
-                      <Icon icon={tag.icon} className="h-4 w-4" />
+                      <Icon icon={tag.icon} className="h-5 w-5" />
                     </span>
                   }
                 />
@@ -175,14 +170,18 @@ export function ProjectRow({
               Code
             </Button>
           )}
-          {stars !== null && (
+          
+        </div>
+      </div>
+      {stars !== null && (
             <Tooltip>
               <TooltipTrigger
                 render={
-                  <span className="border-border/60 text-muted-foreground flex h-7 cursor-default items-center gap-1 rounded-full border px-2.5 text-xs tabular-nums">
+                  <span className="  absolute top-2 right-3 border-border/60 text-muted-foreground flex h-6 cursor-default items-center gap-1 rounded-full border px-2 text-xs tabular-nums">
                     <Icon
-                      icon="lucide:star"
-                      className="h-3.5 w-3.5 text-amber-500"
+                      icon="fluent-color:star-48"
+                      className="h-4 w-4 text-orange-500"
+                      fill="orange"
                     />
                     {stars.toLocaleString()}
                   </span>
@@ -191,8 +190,6 @@ export function ProjectRow({
               <TooltipContent>GitHub stars</TooltipContent>
             </Tooltip>
           )}
-        </div>
-      </div>
     </motion.article>
   )
 }
