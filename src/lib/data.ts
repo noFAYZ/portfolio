@@ -89,11 +89,7 @@ export const skillGroups = [
         icon: "vscode-icons:file-type-docker2",
         level: "Intermediate",
       },
-      {
-        name: "Vercel",
-        icon: "vscode-icons:file-type-light-vercel",
-        level: "Advanced",
-      },
+    
       { name: "Git", icon: "vscode-icons:file-type-git", level: "Expert" },
       {
         name: "AWS",
