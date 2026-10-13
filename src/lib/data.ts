@@ -1,292 +1,174 @@
-import IconicIcon from "../assets/iconic.jpg"
-import IqeraIcon from "../assets/iqera.png"
-import MoneyMapprImage from "../assets/projects/moneymappr.JPG"
-import FlexImage from "../assets/projects/flex.jpg"
-import AceMinersImage from "../assets/projects/aceminers.PNG"
-import AoteImage from "../assets/projects/aote.PNG"
-import MarkImage from "../assets/projects/mark.PNG"
-import TrippyImage from "../assets/projects/trippy.PNG"
-import AntMinerzImage from "../assets/projects/antminerz.PNG"
-import PepeImage from "../assets/projects/pepe.PNG"
-import PortfolioImage from "../assets/projects/portfolio.png"
-import SwapImage from "../assets/projects/swap.jpg"
-import OrcafiImage from "../assets/projects/orcafi.PNG"
-import OceanMoneyImage from "../assets/projects/ocean.money.PNG"
-import ZunoImage from "../assets/projects/zuno.png"
-import ZunoHomeDarkImage from "../assets/blog/zuno-home-dark.png"
-import ZunoHomeLightImage from "../assets/blog/zuno-home-light.png"
-import ZunoQueueImage from "../assets/blog/zuno-queue.png"
-import ZunoSettingsImage from "../assets/blog/zuno-settings.png"
+import ZunoImage from "@/assets/work/zuno.jpg"
+import MoneyMapprImage from "@/assets/work/moneymappr.jpg"
+import DeflexyImage from "@/assets/work/deflexy.jpg"
+import OceanMoneyImage from "@/assets/work/ocean-money.jpg"
+import OrcafiSwapImage from "@/assets/work/orcafi-swap.jpg"
+import AceMinersImage from "@/assets/work/ace-miners.jpg"
+import OrcafiNftImage from "@/assets/work/orcafi-nft.jpg"
+import AoteImage from "@/assets/work/aote.jpg"
+import TrippyImage from "@/assets/work/trippy-lion.jpg"
+import AntMinerzImage from "@/assets/work/ant-minerz.jpg"
+import PepeImage from "@/assets/work/poker-pepe.jpg"
+import PortfolioImage from "@/assets/work/portfolio-template.jpg"
+import OrcafiDefiImage from "@/assets/work/orcafi-defi.jpg"
+import ZunoHomeDarkImage from "@/assets/blog/zuno-home-dark.jpg"
+import ZunoHomeLightImage from "@/assets/blog/zuno-home-light.jpg"
+import ZunoQueueImage from "@/assets/blog/zuno-queue.jpg"
+import ZunoSettingsImage from "@/assets/blog/zuno-settings.jpg"
+import IconicLogo from "@/assets/logos/iconic.jpg"
+import IqeraLogo from "@/assets/logos/iqera.png"
+import FastLogo from "@/assets/logos/fast.png"
+import Portrait from "@/assets/profile/portrait.jpg"
+import Resume from "@/assets/profile/resume.pdf"
+
 export const profile = {
   name: "Faizan Asad",
-  role: "Software Engineer",
-  tagline:
-    "I build fast, accessible, and well-crafted web apps from idea to deployment.",
-  location: "Islamabad, Pakistan",
+  /** shown with a live dot in the hero — set to "" to hide */
+  status: "Available for work",
+  /** *word* renders as the serif italic accent */
+  headline: "Hey, I'm Faizan. I build fast, *well-crafted* web apps.",
+  location: "Islamabad",
+  timeZone: "Asia/Karachi",
   email: "hello@fayzan.xyz",
-  resumeUrl: "/resume.pdf",
-  social: {
-    github: "https://github.com/noFAYZ",
-  },
+  github: "https://github.com/noFAYZ",
+  resume: Resume,
+  portrait: Portrait,
 }
 
-export const skillGroups = [
-  {
-    name: "Frontend",
-    skills: [
-      {
-        name: "JavaScript",
-        icon: "vscode-icons:file-type-js-official",
-        level: "Expert",
-      },
-      {
-        name: "TypeScript",
-        icon: "vscode-icons:file-type-typescript-official",
-        level: "Expert",
-      },
-      {
-        name: "React",
-        icon: "vscode-icons:file-type-reactjs",
-        level: "Expert",
-      },
-      {
-        name: "Next.js",
-        icon: "vscode-icons:file-type-light-next",
-        level: "Advanced",
-      },
-      {
-        name: "Tailwind CSS",
-        icon: "vscode-icons:file-type-tailwind",
-        level: "Expert",
-      },
-    ],
-  },
-  {
-    name: "Backend",
-    skills: [
-      {
-        name: "Node.js",
-        icon: "vscode-icons:file-type-node",
-        level: "Advanced",
-      },
-      {
-        name: "PostgreSQL",
-        icon: "vscode-icons:file-type-postgres",
-        level: "Advanced",
-      },
-      {
-        name: "MongoDB",
-        icon: "vscode-icons:file-type-mongo",
-        level: "Advanced",
-      },
-    ],
-  },
-  {
-    name: "Tools",
-    skills: [
-      {
-        name: "Docker",
-        icon: "vscode-icons:file-type-docker2",
-        level: "Intermediate",
-      },
-    
-      { name: "Git", icon: "vscode-icons:file-type-git", level: "Expert" },
-      {
-        name: "AWS",
-        icon: "vscode-icons:file-type-aws",
-        level: "Intermediate",
-      },
-    ],
-  },
-] as const
+/** Home page sections, in order — drives the dock and the command palette. */
+export const sections = [
+  { id: "work", label: "Work" },
+  { id: "writing", label: "Writing" },
+  { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
+]
 
 export type Project = {
   title: string
-  date?: string
+  date: string
+  /** one line — it sits on the card */
   description: string
-  image?: string
-  icon: string
-  tags: { name: string; icon: string }[]
+  image: string
+  tags: string[]
   liveUrl?: string
   repoUrl?: string
+  /** GitHub stars to show when the live count can't be fetched (a dated snapshot) */
+  stars?: number
+  /** slug of a post that tells the story; the card opens it */
+  caseStudy?: string
   featured?: boolean
-  openSource?: boolean
+  /** a featured card's colour — see the tone-* classes in index.css */
+  tone?: "peach" | "mint" | "blush"
 }
-
-const tagIcons: Record<string, string> = {
-  React: "vscode-icons:file-type-reactjs",
-  "Next.js": "vscode-icons:file-type-light-next",
-  "Tailwind CSS": "vscode-icons:file-type-tailwind",
-  PostgreSQL: "vscode-icons:file-type-postgres",
-  MongoDB: "vscode-icons:file-type-mongo",
-  "Node.js": "vscode-icons:file-type-node",
-  Solidity: "vscode-icons:file-type-solidity",
-  Vercel: "vscode-icons:file-type-light-vercel",
-  "ethers.js": "simple-icons:ethers",
-  "Web3.js": "simple-icons:web3dotjs",
-  IPFS: "simple-icons:ipfs",
-  OpenAI: "simple-icons:openai",
-  Express: "simple-icons:express",
-  "D3.js": "simple-icons:d3dotjs",
-  "Chart.js": "simple-icons:chartdotjs",
-  "Framer Motion": "simple-icons:framer",
-  "Socket.io": "devicon:socketio",
-  NFTs: "ri:nft-line",
-  dApp: "lucide:boxes",
-  TypeScript: "vscode-icons:file-type-typescript-official",
-  Rust: "vscode-icons:file-type-rust",
-  Tauri: "devicon:tauri",
-  Vite: "vscode-icons:file-type-vite",
-}
-
-const tags = (...names: string[]) =>
-  names.map((name) => ({ name, icon: tagIcons[name] ?? "lucide:tag" }))
 
 export const projects: Project[] = [
   {
     title: "Zuno",
     date: "2025-11-01",
-    description:
-      "A fast, native-feeling desktop client for YouTube Music — offline downloads, synced lyrics, mini player. Windows, macOS and Linux.",
+    description: "Desktop client for YouTube Music",
     image: ZunoImage,
-    icon: "lucide:music",
-    tags: tags("Tauri", "Rust", "React", "TypeScript", "Vite"),
+    tags: ["Tauri", "Rust", "React", "TypeScript", "Vite"],
     liveUrl: "https://zuno.fayzan.xyz",
     repoUrl: "https://github.com/noFAYZ/zuno",
+    stars: 652, // 2026-10-14; the live count replaces it
+    caseStudy: "zuno-case-study",
     featured: true,
-    openSource: true,
+    tone: "peach",
   },
   {
-    title: "MoneyMappr | Financial portfolio",
+    title: "MoneyMappr",
     date: "2025-02-15",
-    description:
-      "A Financial Portfolio management solution for all your Banks, Crypto and Ecommerce accounts.",
+    description: "Banks, crypto and commerce in one portfolio",
     image: MoneyMapprImage,
-    icon: "lucide:wallet",
-    tags: tags("ethers.js", "React", "Next.js", "PostgreSQL", "NFTs"),
+    tags: ["ethers.js", "React", "Next.js", "PostgreSQL", "NFTs"],
     liveUrl: "https://moneymapprs.vercel.app/",
-    repoUrl: "https://github.com/nofayz",
     featured: true,
+    tone: "mint",
   },
   {
-    title: "Ocean.Money",
-    date: "2021-06-15",
-    description:
-      "Personal finance dashboard with visualization tools and insights.",
-    image: OceanMoneyImage,
-    icon: "lucide:waves",
-    tags: tags("React", "Next.js", "Solidity", "Web3.js", "IPFS", "dApp"),
-    liveUrl: "http://ocean.money/",
-    repoUrl: "https://github.com/yourusername/data-viz-dashboard",
-  },
-  {
-    title: "Orcafi Swap DEX",
-    date: "2021-12-10",
-    description:
-      "Decentralized exchange for trading assets with AMM and yield farming.",
-    image: SwapImage,
-    icon: "lucide:arrow-left-right",
-    tags: tags("React", "Next.js", "Solidity", "Web3.js", "IPFS", "dApp"),
-    liveUrl: "https://data-viz-dashboard-demo.vercel.app",
-    repoUrl: "https://github.com/yourusername/data-viz-dashboard",
-  },
-  {
-    title: "deFlexy Platform",
+    title: "deFlexy",
     date: "2025-01-10",
-    description:
-      "Decentralized freelancing platform powered by secure smart contracts.",
-    image: FlexImage,
-    icon: "lucide:briefcase",
-    tags: tags("Solidity", "React", "Next.js", "IPFS", "Web3.js", "dApp"),
+    description: "Freelancing on smart contracts",
+    image: DeflexyImage,
+    tags: ["Solidity", "React", "Next.js", "IPFS", "Web3.js", "dApp"],
     liveUrl: "https://deflexy.com",
     repoUrl: "https://github.com/nofayz/deflexy",
-  },
-  {
-    title: "Ace Miners Rewards",
-    date: "2022-08-30",
-    description:
-      "NFT-based mining rewards platform with unique staking mechanism.",
-    image: AceMinersImage,
-    icon: "lucide:pickaxe",
-    tags: tags("React", "Node.js", "Socket.io", "OpenAI", "MongoDB"),
-    liveUrl: "https://aceminers.com",
-    repoUrl: "https://github.com/yourusername/ai-chat-app",
-  },
-  {
-    title: "Orcafi NFT Marketplace",
-    date: "2023-04-22",
-    description:
-      "Decentralized NFT marketplace with creator-friendly features and low fees.",
-    image: MarkImage,
-    icon: "lucide:store",
-    tags: tags("Solidity", "React", "Next.js", "IPFS", "Web3.js", "dApp"),
-    liveUrl: "http://orcafi.io/p",
-    repoUrl: "https://github.com/nofayz",
+    featured: true,
+    tone: "blush",
   },
   {
     title: "A.O.T.E. NFT Collection",
     date: "2023-08-15",
-    description:
-      "Manga-inspired NFT collection with unique character abilities and storylines.",
+    description: "Manga-inspired NFT collection with character lore",
     image: AoteImage,
-    icon: "lucide:swords",
-    tags: tags("ethers.js", "React", "Next.js", "PostgreSQL", "NFTs"),
+    tags: ["ethers.js", "React", "Next.js", "PostgreSQL", "NFTs"],
     liveUrl: "https://aote.vercel.app/",
-    repoUrl: "https://github.com/nofayz",
+  },
+  {
+    title: "Orcafi NFT Marketplace",
+    date: "2023-04-22",
+    description: "Creator-friendly NFT marketplace with low fees",
+    image: OrcafiNftImage,
+    tags: ["Solidity", "React", "Next.js", "IPFS", "Web3.js", "dApp"],
+    liveUrl: "http://orcafi.io/p",
   },
   {
     title: "Trippy Lion NFTs",
     date: "2022-11-05",
-    description:
-      "Psychedelic artwork NFT collection with generative designs on Ethereum.",
+    description: "Generative psychedelic art on Ethereum",
     image: TrippyImage,
-    icon: "lucide:palette",
-    tags: tags("React", "Next.js", "Solidity", "Web3.js", "IPFS"),
-    liveUrl: "https://data-viz-dashboard-demo.vercel.app",
-    repoUrl: "https://github.com/yourusername/data-viz-dashboard",
+    tags: ["React", "Next.js", "Solidity", "Web3.js", "IPFS"],
+  },
+  {
+    title: "Ace Miners Rewards",
+    date: "2022-08-30",
+    description: "NFT mining rewards with staking",
+    image: AceMinersImage,
+    tags: ["React", "Node.js", "Socket.io", "OpenAI", "MongoDB"],
+    liveUrl: "https://aceminers.com",
   },
   {
     title: "Ant Minerz Platform",
     date: "2022-06-15",
-    description:
-      "Ecosystem for digital mining assets with recurring rewards system.",
+    description: "Digital mining assets with recurring rewards",
     image: AntMinerzImage,
-    icon: "lucide:gem",
-    tags: tags("React", "Next.js", "Solidity", "Web3.js", "IPFS"),
-    liveUrl: "https://ecommerce-platform-demo.vercel.app",
-    repoUrl: "https://github.com/yourusername/ecommerce-platform",
+    tags: ["React", "Next.js", "Solidity", "Web3.js", "IPFS"],
   },
   {
     title: "Poker Pepe Collection",
     date: "2022-04-01",
-    description: "Poker-themed NFT characters and accessories on Ethereum.",
+    description: "Poker-themed NFT characters on Ethereum",
     image: PepeImage,
-    icon: "lucide:spade",
-    tags: tags("D3.js", "React", "Express", "PostgreSQL", "Chart.js"),
-    liveUrl: "https://data-viz-dashboard-demo.vercel.app",
-    repoUrl: "https://github.com/yourusername/data-viz-dashboard",
+    tags: ["D3.js", "React", "Express", "PostgreSQL", "Chart.js"],
   },
   {
     title: "Portfolio Template",
     date: "2022-02-15",
-    description:
-      "Modern, responsive portfolio website for developers and creatives.",
+    description: "Responsive portfolio for developers and creatives",
     image: PortfolioImage,
-    icon: "lucide:layout-template",
-    tags: tags("React", "Next.js", "Tailwind CSS", "Framer Motion", "Vercel"),
-    liveUrl: "https://data-viz-dashboard-demo.vercel.app",
-    repoUrl: "https://github.com/yourusername/data-viz-dashboard",
+    tags: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Vercel"],
+  },
+  {
+    title: "Orcafi Swap DEX",
+    date: "2021-12-10",
+    description: "AMM exchange with yield farming",
+    image: OrcafiSwapImage,
+    tags: ["React", "Next.js", "Solidity", "Web3.js", "IPFS", "dApp"],
   },
   {
     title: "Orcafi DeFi",
     date: "2021-09-22",
-    description:
-      "Platform for earning interest on crypto assets with various DeFi services.",
-    image: OrcafiImage,
-    icon: "lucide:coins",
-    tags: tags("React", "Next.js", "Solidity", "Web3.js", "IPFS"),
-    liveUrl: "https://data-viz-dashboard-demo.vercel.app",
-    repoUrl: "https://github.com/yourusername/data-viz-dashboard",
+    description: "Earn interest on crypto assets",
+    image: OrcafiDefiImage,
+    tags: ["React", "Next.js", "Solidity", "Web3.js", "IPFS"],
+  },
+  {
+    title: "Ocean.Money",
+    date: "2021-06-15",
+    description: "Personal finance dashboard and insights",
+    image: OceanMoneyImage,
+    tags: ["React", "Next.js", "Solidity", "Web3.js", "IPFS", "dApp"],
+    liveUrl: "http://ocean.money/",
   },
 ]
 
@@ -357,87 +239,33 @@ export const posts: Post[] = [
   },
 ]
 
-export type Experience = {
-  role: string
-  company: string
+export type Entry = {
   period: string
-  description: string
-  tags: { name: string; icon: string }[]
-  icon: string
-  current?: boolean
+  title: string
+  place: string
+  /** a logo image; without one the row shows a globe */
+  logo?: string
 }
 
-export const experience: Experience[] = [
+/** Work history, newest first, with education at the end. */
+export const experience: Entry[] = [
+  { period: "2025 — Now", title: "Full Stack Developer", place: "Freelance" },
   {
-    role: "Full Stack Developer",
-    company: "Freelance",
-    period: "2025 — Present",
-    description:
-      "Delivered end-to-end web applications for clients worldwide, covering UI design, backend development, and deployment.",
-    tags: [
-      { name: "JavaScript", icon: "vscode-icons:file-type-js-official" },
-      { name: "React", icon: "vscode-icons:file-type-reactjs" },
-      { name: "MongoDB", icon: "vscode-icons:file-type-mongo" },
-      { name: "Next.js", icon: "vscode-icons:file-type-light-next" },
-      { name: "Figma", icon: "vscode-icons:file-type-figma" },
-    ],
-    icon: "cib:upwork",
-    current: true,
+    period: "2022 — 25",
+    title: "Full Stack Developer",
+    place: "iconicstudio.com",
+    logo: IconicLogo,
   },
   {
-    role: "Full Stack Developer",
-    company: "iconicstudio.com",
-    period: "2022 — 2025",
-    description:
-      "Developed smart contracts and community dApps across EVM-compatible chains, supporting over $3M in on-chain transactions. Built full-stack Web3 applications, integrating blockchain infrastructure, wallets, and decentralized protocols.",
-    tags: [
-      { name: "React", icon: "vscode-icons:file-type-reactjs" },
-      {
-        name: "TypeScript",
-        icon: "vscode-icons:file-type-typescript-official",
-      },
-      { name: "Node.js", icon: "vscode-icons:file-type-node" },
-      { name: "PostgreSQL", icon: "vscode-icons:file-type-postgres" },
-      { name: "Tailwind CSS", icon: "vscode-icons:file-type-tailwind" },
-    ],
-    icon: IconicIcon,
+    period: "2021 — 22",
+    title: "System Administrator",
+    place: "IQera Schools",
+    logo: IqeraLogo,
   },
   {
-    role: "System Administrator  ",
-    company: "IQera Schools",
-    period: "2021 — 2022",
-    description:
-      "Managed LMS infrastructure, handling deployments, monitoring and server administration. Developed and maintained the school's app and website.",
-    tags: [
-      { name: "Linux", icon: "vscode-icons:file-type-linux" },
-      { name: "DevOps", icon: "carbon:ibm-cloud-devops-insights" },
-      { name: "Sakai LMS", icon: "mdi:school-outline" },
-      { name: "React Native", icon: "vscode-icons:file-type-reactjs" },
-      { name: "JavaScript", icon: "vscode-icons:file-type-js-official" },
-      { name: "System Administration", icon: "mdi:server" },
-    ],
-    icon: IqeraIcon,
-  },
-]
-
-export type Education = {
-  degree: string
-  school: string
-  period: string
-  description: string
-  tags: string[]
-  icon: string
-  current?: boolean
-}
-
-export const education: Education[] = [
-  {
-    degree: "B.S. in Computer Science",
-    school: "FAST NUCES",
-    period: "2017 — 2021",
-    description:
-      "Focused on software engineering, data structures, and web development. Graduated with honors and led the university's coding club.",
-    tags: ["Algorithms", "Databases", "Software Engineering"],
-    icon: "lucide:graduation-cap",
+    period: "2017 — 21",
+    title: "B.S. Computer Science",
+    place: "FAST NUCES",
+    logo: FastLogo,
   },
 ]

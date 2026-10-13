@@ -22,12 +22,21 @@ export default defineConfig([
     },
   },
   {
-    // ShadCN-style files export variants/hooks alongside their component
-    // (buttonVariants, badgeVariants, useTheme); editing them falls back to a
-    // full reload instead of fast refresh, which is fine for primitives.
-    files: ['src/components/ui/**/*.tsx', 'src/components/theme-provider.tsx'],
+    // Source vendored by `shadcn add` (beUI, shadcn). Kept as pulled so a
+    // re-pull diffs cleanly: these files export helpers beside components, and
+    // use two patterns the compiler rules flag that are safe where they sit —
+    // a mounted flag set in an effect before portalling, and a counter bumped
+    // while rendering a list.
+    files: [
+      'src/components/ui/**',
+      'src/components/motion/**',
+      'src/lib/hooks/**',
+      'src/lib/presence-gate.tsx',
+    ],
     rules: {
       'react-refresh/only-export-components': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/immutability': 'off',
     },
   },
 ])

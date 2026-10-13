@@ -1,27 +1,56 @@
-import { motion } from "motion/react"
-import { fadeUp } from "@/lib/motion"
+import { Globe } from "lucide-react"
+import { Section } from "@/components/section"
+import { experience } from "@/lib/data"
+import { useIsDark } from "@/lib/theme"
 
 export function About() {
+  const dark = useIsDark()
+
   return (
-    <section id="about" className="mx-auto w-full max-w-2xl px-6 py-12">
-      <motion.div {...fadeUp()} className="text-center">
-        <p className="text-sm  sm:text-lg">
-          I'm a full-stack developer who turns{" "}
-          <span className="font-heading text-foreground font-semibold">
-            complex problems
-          </span>{" "}
-          into{" "}
-          <span className="font-heading text-foreground font-semibold">
-            simple, robust
-          </span>{" "}
-          solutions pixel-perfect interfaces, APIs that hold up, and Web3
-          systems that have moved{" "}
-          <span className="font-heading text-foreground font-semibold">
-            $3M+ on-chain
-          </span>
-          .
+    <Section id="about" title="About">
+      <ul className="flex flex-col gap-1">
+        {experience.map((entry) => (
+          <li
+            key={entry.place + entry.title}
+            className="flex items-center gap-3 py-1.5"
+          >
+            {entry.logo ? (
+              <img
+                src={entry.logo}
+                alt=""
+                className="size-9 shrink-0 rounded-full object-cover"
+              />
+            ) : (
+              <span className="bg-card/50 text-muted-foreground grid size-9 shrink-0 place-items-center rounded-full">
+                <Globe aria-hidden className="size-4" />
+              </span>
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[14px] font-medium">{entry.place}</p>
+              <p className="text-muted-foreground truncate text-[13px]">
+                {entry.title}
+              </p>
+            </div>
+            <span className="text-muted-foreground shrink-0 text-[13px] tabular-nums">
+              {entry.period}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="bg-card/50 mt-6 rounded-2xl p-4 sm:p-5">
+        <p className="text-muted-foreground mb-3 text-[13px]">
+          GitHub activity
         </p>
-      </motion.div>
-    </section>
+        {/* color-scheme: normal keeps the embed transparent in dark mode */}
+        <iframe
+          src={`https://jandi.firejune.io/nofayz?radius=3&margin=2&footer=false&weeks=false&scheme=${dark ? "dark" : "light"}`}
+          title="GitHub contribution graph"
+          loading="lazy"
+          height={80}
+          className="w-full [color-scheme:normal]"
+        />
+      </div>
+    </Section>
   )
 }

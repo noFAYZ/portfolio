@@ -1,138 +1,185 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/geist";
 @import "@fontsource-variable/newsreader";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
 
-@custom-variant dark (&:is(.dark *));
+/*
+ * zunoUI tokens. Dark is the default; html[data-theme="light"] flips the same
+ * names, so no component carries a `dark:` variant. These names are beUI's
+ * contract — the vendored components in components/motion are classed against
+ * them, so renaming one strips their styling with no error.
+ */
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  /* the italic accent in headlines, and long-form reading */
+  --font-serif: "Newsreader Variable", ui-serif, Georgia, serif;
+  /* EASE_OUT from lib/ease.ts — Tailwind's stock ease-out is too soft */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-@theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: 'Space Grotesk Variable', sans-serif;
-    /* long-form reading only — article body and titles */
-    --font-reading: 'Newsreader Variable', ui-serif, Georgia, serif;
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+  --color-background: oklch(0.145 0 0);
+  --color-foreground: oklch(0.985 0 0);
+  --color-card: oklch(0.285 0 0);
+  --color-card-foreground: oklch(0.985 0 0);
+  --color-popover: oklch(0.205 0 0);
+  --color-popover-foreground: oklch(0.985 0 0);
+  --color-muted: oklch(0.269 0 0);
+  --color-muted-foreground: oklch(0.708 0 0);
+
+  /* the one site-specific token; the ring tracks it */
+  --color-primary: #ff4f00;
+  --color-primary-foreground: oklch(0.985 0 0);
+  --color-ring: #ff4f00;
+
+  --color-secondary: oklch(0.269 0 0);
+  --color-secondary-foreground: oklch(0.985 0 0);
+  --color-destructive: oklch(0.704 0.191 22.216);
+  --color-destructive-foreground: oklch(0.985 0 0);
+  /* kept for vendored internals; nothing this site authors draws a border */
+  --color-border: oklch(1 0 0 / 10%);
+  --color-input: oklch(1 0 0 / 15%);
+
+  /* site additions: the "available" dot, GitHub stars, and Zuno's red */
+  --color-success: oklch(0.74 0.18 150);
+  --color-star: oklch(0.86 0.16 88);
+  --color-glow-red: oklch(0.64 0.24 22);
 }
 
-:root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+/*
+ * Light: the background sits below white and cards sit at white — in a
+ * borderless UI, white-on-white makes every card and hover state vanish.
+ */
+html[data-theme="light"] {
+  --color-background: oklch(0.954 0 0);
+  --color-foreground: oklch(0.205 0 0);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.205 0 0);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.205 0 0);
+  --color-muted: oklch(0.915 0 0);
+  /* 0.45 keeps secondary text at ~4.6:1 on the background */
+  --color-muted-foreground: oklch(0.45 0 0);
+  --color-secondary: oklch(0.915 0 0);
+  --color-secondary-foreground: oklch(0.205 0 0);
+  --color-border: oklch(0 0 0 / 10%);
+  --color-input: oklch(0 0 0 / 14%);
+  --color-success: oklch(0.62 0.17 150);
+  /* deeper amber: the bright yellow washes out on white */
+  --color-star: oklch(0.77 0.16 75);
+  color-scheme: light;
 }
 
-.dark {
-    --background: oklch(24.039% 0.00151 16.27);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-    }
-  body {
-    @apply bg-background text-foreground;
-    }
   html {
-    @apply font-sans;
-    }
+    /* the command palette locks scroll; the reserved gutter stops a shift */
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
 }
 
-/* ── custom scrollbar ─────────────────────────────────────── */
+/* ── pastel cards ────────────────────────────────────────────── */
+
+/*
+ * After the "shape the sound" cards: a tinted card with a tonal edge, a white
+ * panel inside it, and ink in the card's own hue. A tone class sets --hue and
+ * every colour is built from it, so one number recolours a card in both
+ * themes. Dark is the default here too: deep tints with light ink.
+ */
+.tone-peach {
+  --hue: 55;
+}
+.tone-mint {
+  --hue: 150;
+}
+.tone-blush {
+  --hue: 350;
+}
+.tone-lilac {
+  --hue: 295;
+}
+.pastel {
+  --pastel-bg: oklch(0.3 0.04 var(--hue));
+  --pastel-edge: oklch(0.37 0.05 var(--hue));
+  --pastel-ink: oklch(0.94 0.035 var(--hue));
+  --pastel-soft: oklch(0.8 0.04 var(--hue));
+  --panel: oklch(0.21 0.012 var(--hue));
+  --panel-edge: oklch(0.29 0.022 var(--hue));
+}
+html[data-theme="light"] .pastel {
+  --pastel-bg: oklch(0.935 0.045 var(--hue));
+  --pastel-edge: oklch(0.86 0.07 var(--hue));
+  --pastel-ink: oklch(0.4 0.08 var(--hue));
+  --pastel-soft: oklch(0.5 0.065 var(--hue));
+  --panel: oklch(1 0 0);
+  --panel-edge: oklch(0.91 0.025 var(--hue));
+}
+
+/* ── view transitions ───────────────────────────────────────── */
+
+/* the dock persists across pages, so it shouldn't fade with them */
+.dock {
+  view-transition-name: dock;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: 0.16s cubic-bezier(0.4, 0, 1, 1) both vt-out;
+  }
+  ::view-transition-new(root) {
+    animation: 0.38s var(--ease-out) 0.06s both vt-in;
+  }
+  ::view-transition-group(*) {
+    animation-duration: 0.5s;
+    animation-timing-function: var(--ease-out);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* a card screenshot morphing into a post cover: crop, don't stretch, mid-flight */
+::view-transition-old(.cover),
+::view-transition-new(.cover) {
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* theme switch: the new theme is revealed by a growing circle (see lib/theme) */
+html.theme-vt::view-transition-old(root),
+html.theme-vt::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.theme-vt * {
+  view-transition-name: none !important;
+}
+
+/* ── custom scrollbar ───────────────────────────────────────── */
 
 /* Chrome / Edge / Safari */
 ::-webkit-scrollbar {
@@ -145,7 +192,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: color-mix(in oklch, var(--muted-foreground) 35%, transparent);
+  background-color: color-mix(
+    in oklch,
+    var(--color-muted-foreground) 35%,
+    transparent
+  );
   border-radius: 9999px;
   /* transparent edge keeps the thumb slim and inset from the window edge */
   border: 2px solid transparent;
@@ -154,7 +205,11 @@
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-  background-color: color-mix(in oklch, var(--muted-foreground) 60%, transparent);
+  background-color: color-mix(
+    in oklch,
+    var(--color-muted-foreground) 60%,
+    transparent
+  );
 }
 
 ::-webkit-scrollbar-corner {
@@ -165,7 +220,11 @@
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in oklch, var(--muted-foreground) 45%, transparent)
+    scrollbar-color: color-mix(
+        in oklch,
+        var(--color-muted-foreground) 45%,
+        transparent
+      )
       transparent;
   }
 }

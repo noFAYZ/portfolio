@@ -5,16 +5,22 @@
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Faizan Asad | Full-Stack Developer</title>
+    <title>Faizan Asad — Software Engineer</title>
+    <meta
+      name="description"
+      content="Faizan Asad is a full-stack software engineer in Islamabad building fast, accessible, well-crafted web apps."
+    />
     <script>
+      // before first paint, so the page never flashes the wrong theme
+      let theme = null
       try {
-        const theme = localStorage.getItem("portfolio-theme")
-        const isDark =
-          theme === "dark" ||
-          (theme !== "light" &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-        document.documentElement.classList.add(isDark ? "dark" : "light")
+        theme = localStorage.getItem("portfolio-theme")
       } catch (_) {}
+      if (theme !== "dark" && theme !== "light")
+        theme = matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark"
+      document.documentElement.dataset.theme = theme
     </script>
   </head>
   <body>

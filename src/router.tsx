@@ -1,7 +1,6 @@
-import { createBrowserRouter } from "react-router"
+import { Navigate, createBrowserRouter } from "react-router"
 import RootLayout from "@/routes/root"
 import Home from "@/routes/home"
-import ProjectsPage from "@/routes/projects"
 import PostPage from "@/routes/post"
 
 export const router = createBrowserRouter([
@@ -10,8 +9,10 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "projects", element: <ProjectsPage /> },
       { path: "blog/:slug", element: <PostPage /> },
+      // the old projects page now lives in the home page's work section
+      { path: "projects", element: <Navigate to="/#work" replace /> },
+      { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
 ])
