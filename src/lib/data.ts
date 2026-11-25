@@ -15,6 +15,14 @@ import ZunoHomeDarkImage from "@/assets/blog/zuno-home-dark.jpg"
 import ZunoHomeLightImage from "@/assets/blog/zuno-home-light.jpg"
 import ZunoQueueImage from "@/assets/blog/zuno-queue.jpg"
 import ZunoSettingsImage from "@/assets/blog/zuno-settings.jpg"
+import GarajHomeDark from "@/assets/work/garaj-hero-phone-dark.webp"
+import GarajHomeLight from "@/assets/work/garaj-hero-phone-light.webp"
+import GarajScheduleDark from "@/assets/work/garaj-phone-schedule-dark.webp"
+import GarajScheduleLight from "@/assets/work/garaj-phone-schedule-light.webp"
+import GarajStatsDark from "@/assets/work/garaj-phone-stats-dark.webp"
+import GarajStatsLight from "@/assets/work/garaj-phone-stats-light.webp"
+import ZunoLogo from "@/assets/logos/apps/zuno.png"
+import GarajLogo from "@/assets/logos/apps/garaj.png"
 import IconicLogo from "@/assets/logos/iconic.jpg"
 import IqeraLogo from "@/assets/logos/iqera.png"
 import FastLogo from "@/assets/logos/fast.png"
@@ -52,14 +60,31 @@ export type Project = {
   tags: string[]
   liveUrl?: string
   repoUrl?: string
+  /** its open-source license (SPDX id); set, the card wears an "Open source" label */
+  license?: string
   /** GitHub stars to show when the live count can't be fetched (a dated snapshot) */
   stars?: number
   /** slug of a post that tells the story; the card opens it */
   caseStudy?: string
-  featured?: boolean
-  /** a featured card's colour — see the tone-* classes in index.css */
+  /** a showcase card's colour — see the tone-* classes in index.css */
   tone?: "peach" | "mint" | "blush"
+  /** the app's own icon, shown beside its name on the card */
+  logo?: string
+  /** what it runs on — sets the card's badge, its /projects filter, and how its shots are laid out */
+  kind?: Kind
+  /**
+   * Puts it on the cards. Desktop and web: the app window, then a window
+   * behind it. Mobile: the front phone, then the left and right ones.
+   */
+  shots?: Shot[]
 }
+
+/** Project kinds and their labels; the /projects filter shows the ones in use. */
+export const kinds = { desktop: "Desktop", mobile: "Mobile", web: "Web" }
+export type Kind = keyof typeof kinds
+
+/** A screenshot in each theme; light falls back to dark. */
+export type Shot = { dark: string; light?: string }
 
 export const projects: Project[] = [
   {
@@ -70,10 +95,32 @@ export const projects: Project[] = [
     tags: ["Tauri", "Rust", "React", "TypeScript", "Vite"],
     liveUrl: "https://zuno.fayzan.xyz",
     repoUrl: "https://github.com/noFAYZ/zuno",
+    license: "Apache-2.0",
     stars: 652, // 2026-10-14; the live count replaces it
     caseStudy: "zuno-case-study",
-    featured: true,
     tone: "peach",
+    kind: "desktop",
+    logo: ZunoLogo,
+    shots: [
+      { dark: ZunoHomeDarkImage, light: ZunoHomeLightImage },
+      { dark: ZunoQueueImage },
+    ],
+  },
+  {
+    title: "Garaj",
+    date: "2026-10-09",
+    description: "A digital garage for every vehicle you own",
+    image: GarajHomeDark,
+    tags: ["Expo", "Fastify", "PostgreSQL", "Next.js", "Drizzle"],
+    repoUrl: "https://github.com/noFAYZ/garaj",
+    tone: "blush",
+    kind: "mobile",
+    logo: GarajLogo,
+    shots: [
+      { dark: GarajHomeDark, light: GarajHomeLight },
+      { dark: GarajScheduleDark, light: GarajScheduleLight },
+      { dark: GarajStatsDark, light: GarajStatsLight },
+    ],
   },
   {
     title: "MoneyMappr",
@@ -82,7 +129,6 @@ export const projects: Project[] = [
     image: MoneyMapprImage,
     tags: ["ethers.js", "React", "Next.js", "PostgreSQL", "NFTs"],
     liveUrl: "https://moneymapprs.vercel.app/",
-    featured: true,
     tone: "mint",
   },
   {
@@ -93,7 +139,6 @@ export const projects: Project[] = [
     tags: ["Solidity", "React", "Next.js", "IPFS", "Web3.js", "dApp"],
     liveUrl: "https://deflexy.com",
     repoUrl: "https://github.com/nofayz/deflexy",
-    featured: true,
     tone: "blush",
   },
   {
@@ -171,6 +216,9 @@ export const projects: Project[] = [
     liveUrl: "http://ocean.money/",
   },
 ]
+
+/** The projects shown as cards, on the home page and /projects; the rest are the archive. */
+export const showcase = projects.filter((p) => p.shots?.length)
 
 /** A paragraph, a "## heading", a screenshot, or a bullet list. */
 export type Block =

@@ -1,226 +1,37 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { AnimatePresence, motion, useSpring } from "motion/react"
-import { ArrowRight, ArrowUpRight, ChevronDown, Star } from "lucide-react"
-import { Link } from "react-router"
+import { ChevronDown } from "lucide-react"
 import { SharedLayoutBg } from "@/components/motion/shared-layout-bg"
+import { ProjectCard } from "@/components/project-card"
 import { Section } from "@/components/section"
-import { projects, type Project } from "@/lib/data"
+import { projects, showcase, type Project } from "@/lib/data"
 import { EASE_OUT, SPRING_GLIDE, SPRING_LAYOUT } from "@/lib/ease"
 import { FOCUS_RING, FOCUS_RING_INSET } from "@/lib/ui"
 import { cn } from "@/lib/utils"
 
 const byDate = (a: Project, b: Project) => b.date.localeCompare(a.date)
-const featured = projects.filter((p) => p.featured).sort(byDate)
-const archive = projects.filter((p) => !p.featured).sort(byDate)
+const archive = projects.filter((p) => !showcase.includes(p)).sort(byDate)
 
 const year = (p: Project) => p.date.slice(0, 4)
-const compact = new Intl.NumberFormat("en", { notation: "compact" })
-
-const chip =
-  "inline-flex h-7 items-center gap-1 rounded-full bg-(--panel) px-3 text-[12px] font-medium text-(--pastel-ink) shadow-sm transition-colors duration-150 hover:bg-(--pastel-bg)"
-
-const STARS_KEY = "gh-stars:"
-const STARS_TTL = 6 * 60 * 60 * 1000
-
-/** The last count we saw for a repo, and when; null if none or storage is blocked. */
-function cachedStars(repo: string): { n: number; at: number } | null {
-  try {
-    const hit = JSON.parse(localStorage.getItem(STARS_KEY + repo) ?? "null")
-    return typeof hit?.n === "number" ? hit : null
-  } catch {
-    return null
-  }
-}
-
-/*
- * GitHub's unauthenticated API allows 60 calls an hour per IP, and every
- * reload spent one per repo — so a busy afternoon (or a dev server's hot
- * reloads) hit the limit, got a 403 and the badge silently vanished. Now a
- * count is cached for six hours and shown at once, and when there is nothing
- * cached and GitHub says no, the snapshot in data.ts stands in.
- */
-function useStars(repoUrl?: string, fallback?: number) {
-  const repo = repoUrl?.match(/github\.com\/([^/]+\/[^/?#]+)/)?.[1]
-  const [stars, setStars] = useState<number | null>(
-    () => (repo ? cachedStars(repo)?.n : undefined) ?? fallback ?? null
-  )
-
-  useEffect(() => {
-    if (!repo) return
-    const hit = cachedStars(repo)
-    if (hit && Date.now() - hit.at < STARS_TTL) return
-    let active = true
-    fetch(`https://api.github.com/repos/${repo}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (typeof data?.stargazers_count !== "number") return
-        try {
-          localStorage.setItem(
-            STARS_KEY + repo,
-            JSON.stringify({ n: data.stargazers_count, at: Date.now() })
-          )
-        } catch {
-          // private mode — this visit still shows the live count
-        }
-        if (active) setStars(data.stargazers_count)
-      })
-      .catch(() => {})
-    return () => {
-      active = false
-    }
-  }, [repo])
-
-  return stars
-}
 
 export function Work() {
   return (
-    <Section id="work" title="Work">
-      {/*
-       * The flagship as a wide card, the other two side by side beneath it.
-       * Each panel takes the shape that crops its screenshot well: a 3:1 band
-       * across the top of Zuno's app, 16:9 (near the screenshots' own shape)
-       * for the pair. One column of natural-height cards on phones.
-       */}
-      <div className="grid gap-3 sm:grid-cols-2 md:-mx-10 lg:-mx-20">
-        {featured.map((project, i) => (
-          <ProjectCard key={project.title} project={project} wide={i === 0} />
+    <Section
+      id="work"
+      title="Selected *work*"
+      link={{ label: "All projects", to: "/projects" }}
+      wide
+    >
+      <div className="grid gap-3 sm:grid-cols-2">
+        {showcase.map((project) => (
+          <ProjectCard key={project.title} project={project} />
         ))}
       </div>
-      <div className="mt-3 md:-mx-10 lg:-mx-20">
+      <div className="mt-3">
         <Archive />
       </div>
     </Section>
-  )
-}
-
-function ProjectCard({ project, wide }: { project: Project; wide: boolean }) {
-  const stars = useStars(project.repoUrl, project.stars)
-  // only the card that was clicked carries the morph name into the transition
-  const [morph, setMorph] = useState(false)
-  const caseStudy = project.caseStudy
-  const href = project.liveUrl ?? project.repoUrl
-  const Arrow = caseStudy ? ArrowRight : ArrowUpRight
-  // the card itself opens the primary link; these are the other ways in —
-  // and once the star badge links to the repo, it is the way in to the source
-  const live = caseStudy ? project.liveUrl : undefined
-  const source =
-    project.repoUrl !== href && stars === null ? project.repoUrl : undefined
-
-  const cover = cn("absolute inset-0 z-10 rounded-2xl", FOCUS_RING)
-
-  return (
-    <article
-      className={cn(
-        "pastel group relative flex flex-col rounded-2xl bg-(--pastel-bg) p-2 ring-1 ring-(--pastel-edge) ring-inset",
-        `tone-${project.tone ?? "peach"}`,
-        wide && "sm:col-span-2"
-      )}
-    >
-      {/* the app on a thin white mat */}
-      <div
-        className={cn(
-          "relative aspect-[16/11] overflow-hidden rounded-xl bg-(--panel) p-1.5 ring-1 ring-(--panel-edge) ring-inset",
-          wide ? "sm:aspect-[3/1]" : "sm:aspect-[16/9]"
-        )}
-      >
-        <img
-          src={project.image}
-          alt=""
-          loading={wide ? "eager" : "lazy"}
-          decoding="async"
-          style={
-            morph
-              ? ({
-                  viewTransitionName: `cover-${caseStudy}`,
-                  viewTransitionClass: "cover",
-                } as React.CSSProperties)
-              : undefined
-          }
-          className="block size-full rounded-lg object-cover object-top ring-1 ring-(--panel-edge) transition-transform duration-500 ease-out group-hover:scale-[1.015]"
-        />
-        {(live || source) && (
-          // above the card-wide link; shown on hover or focus, always on touch
-          <span className="absolute right-3 bottom-3 z-20 flex gap-1.5 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100 pointer-coarse:opacity-100">
-            {live && (
-              <a
-                href={live}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(chip, FOCUS_RING)}
-              >
-                Live
-                <ArrowUpRight aria-hidden className="size-3" />
-              </a>
-            )}
-            {source && (
-              <a
-                href={source}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(chip, FOCUS_RING)}
-              >
-                Source
-                <ArrowUpRight aria-hidden className="size-3" />
-              </a>
-            )}
-          </span>
-        )}
-      </div>
-
-      <div className="px-3 pt-3.5 pb-2.5">
-        <div className="flex items-center gap-2">
-          <h3 className="truncate text-[15px] font-semibold text-(--pastel-ink)">
-            {project.title}
-          </h3>
-          {stars !== null && project.repoUrl && (
-            // above the card-wide link, so it opens the repo rather than the card
-            <a
-              href={project.repoUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`${compact.format(stars)} stars on GitHub`}
-              className={cn(
-                "hover:bg-star/20 relative z-20 inline-flex h-6 shrink-0 items-center gap-1 rounded-full bg-(--panel) px-2 text-[12px] font-medium text-(--pastel-ink) tabular-nums shadow-sm transition-colors duration-150",
-                FOCUS_RING
-              )}
-            >
-              <Star aria-hidden className="fill-star text-star size-3.5" />
-              {compact.format(stars)}
-            </a>
-          )}
-          <span className="ml-auto flex shrink-0 items-center gap-1 text-[13px] text-(--pastel-soft) tabular-nums">
-            {year(project)}
-            <Arrow
-              aria-hidden
-              className="size-3.5 -translate-x-1 opacity-0 transition duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100"
-            />
-          </span>
-        </div>
-        <p className="mt-1 truncate text-[13.5px] leading-snug text-(--pastel-soft)">
-          {project.description}
-        </p>
-      </div>
-
-      {caseStudy ? (
-        <Link
-          to={`/blog/${caseStudy}`}
-          viewTransition
-          onClick={() => setMorph(true)}
-          aria-label={`${project.title}: read the case study`}
-          className={cover}
-        />
-      ) : (
-        <a
-          href={href}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`${project.title}: visit the site`}
-          className={cover}
-        />
-      )}
-    </article>
   )
 }
 

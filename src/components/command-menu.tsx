@@ -3,6 +3,7 @@ import {
   FileText,
   FolderGit2,
   Hash,
+  LayoutGrid,
   Mail,
   SunMoon,
 } from "lucide-react"
@@ -38,6 +39,13 @@ export function CommandMenu({
       icon: Hash,
       onSelect: goTo(s.id),
     })),
+    {
+      id: "go-projects",
+      label: "Projects",
+      group: "Go to",
+      icon: LayoutGrid,
+      onSelect: () => navigate("/projects", { viewTransition: true }),
+    },
     ...projects.flatMap((p) => {
       const url = p.liveUrl ?? p.repoUrl
       if (!url) return []
@@ -46,8 +54,8 @@ export function CommandMenu({
           id: `project-${p.title}`,
           label: p.title,
           group: "Projects",
-          // the stack is searchable — "solidity" finds the dApps
-          keywords: p.tags,
+          // the stack and kind are searchable — "solidity" finds the dApps, "mobile" the apps
+          keywords: p.kind ? [...p.tags, p.kind] : p.tags,
           icon: ArrowUpRight,
           badge: (
             <span className="text-muted-foreground text-[12px] tabular-nums">

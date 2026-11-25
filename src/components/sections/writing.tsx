@@ -9,7 +9,11 @@ const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date))
 
 export function Writing() {
   return (
-    <Section id="writing" title="Writing">
+    <Section
+      id="writing"
+      title="Latest *writing*"
+      meta={`${posts.length} post${posts.length === 1 ? "" : "s"}`}
+    >
       {/* the text stays on the column edge; the hover pill bleeds past it */}
       <SharedLayoutBg as="ul" inset={12} pillClassName="rounded-xl bg-card">
         {sorted.map((post) => (

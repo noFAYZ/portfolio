@@ -1,13 +1,17 @@
 import { Globe } from "lucide-react"
 import { Section } from "@/components/section"
-import { experience } from "@/lib/data"
+import { experience, profile } from "@/lib/data"
 import { useIsDark } from "@/lib/theme"
 
 export function About() {
   const dark = useIsDark()
 
   return (
-    <Section id="about" title="About">
+    <Section
+      id="about"
+      title="Where I've *been*"
+      link={{ label: "Résumé", href: profile.resume }}
+    >
       <ul className="flex flex-col gap-1">
         {experience.map((entry) => (
           <li

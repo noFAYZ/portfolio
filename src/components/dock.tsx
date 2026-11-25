@@ -54,9 +54,17 @@ function useActiveSection(enabled: boolean) {
 const item =
   "transition-[color,background-color,scale] duration-150 active:scale-95"
 
+// the home sections, with the projects page slotted in after Work
+const links = sections.map(({ id, label }) => ({ id, label, to: `/#${id}` }))
+links.splice(1, 0, { id: "projects", label: "Projects", to: "/projects" })
+
 export function Dock({ onCommand }: { onCommand: () => void }) {
-  const home = useLocation().pathname === "/"
-  const active = useActiveSection(home)
+  const { pathname } = useLocation()
+  const home = pathname === "/"
+  // the projects page wears the dock up top; its name glides it there between pages
+  const top = pathname === "/projects"
+  const section = useActiveSection(home)
+  const active = top ? "projects" : section
   const dark = useIsDark()
 
   // on the home page glide there; from anywhere else the link routes home
@@ -69,16 +77,24 @@ export function Dock({ onCommand }: { onCommand: () => void }) {
   return (
     <motion.nav
       aria-label="Primary"
-      initial={{ y: 80, opacity: 0 }}
+      initial={{ y: top ? -80 : 80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ ...SPRING_PANEL, delay: 0.6 }}
-      className="dock bg-popover/80 fixed inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 mx-auto flex w-fit items-center gap-0.5 rounded-full p-1 text-[13px] shadow-2xl backdrop-blur-xl backdrop-saturate-150"
+      className={cn(
+        "dock bg-popover/80 fixed inset-x-0 z-40",
+        top
+          ? "top-[max(1rem,env(safe-area-inset-top))]"
+          : "bottom-[max(1rem,env(safe-area-inset-bottom))]",
+        "mx-auto flex w-fit items-center gap-0.5 rounded-full p-1 text-[13px] shadow-2xl backdrop-blur-xl backdrop-saturate-150"
+      )}
     >
+      {/* hidden on phones, where six items would overflow — Work and the rest still lead home */}
       <Link
         to="/"
+        viewTransition
         onClick={jump("top")}
         aria-label="Home"
-        className={cn("mr-0.5 rounded-full", item, FOCUS_RING)}
+        className={cn("mr-0.5 hidden rounded-full sm:block", item, FOCUS_RING)}
       >
         <img
           src={profile.portrait}
@@ -87,14 +103,21 @@ export function Dock({ onCommand }: { onCommand: () => void }) {
         />
       </Link>
 
-      {sections.map(({ id, label }) => (
+      {links.map(({ id, label, to }) => (
         <Link
           key={id}
-          to={`/#${id}`}
-          onClick={jump(id)}
-          aria-current={active === id ? "location" : undefined}
+          to={to}
+          viewTransition
+          onClick={id === "projects" ? undefined : jump(id)}
+          aria-current={
+            active === id
+              ? id === "projects"
+                ? "page"
+                : "location"
+              : undefined
+          }
           className={cn(
-            "relative rounded-full px-2.5 py-1.5 sm:px-3",
+            "relative rounded-full px-2 py-1.5 sm:px-3",
             item,
             active === id
               ? "text-foreground"
