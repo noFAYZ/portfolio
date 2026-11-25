@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@fontsource-variable/geist";
+@import "@fontsource-variable/albert-sans";
 @import "@fontsource-variable/newsreader";
 @import "@fontsource-variable/newsreader/opsz-italic.css";
 
@@ -10,7 +10,7 @@
  * them, so renaming one strips their styling with no error.
  */
 @theme {
-  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Albert Sans Variable", ui-sans-serif, system-ui, sans-serif;
   /* the italic accent in headlines, and long-form reading */
   --font-serif: "Newsreader Variable", ui-serif, Georgia, serif;
   /* EASE_OUT from lib/ease.ts — Tailwind's stock ease-out is too soft */
@@ -38,10 +38,9 @@
   --color-border: oklch(1 0 0 / 10%);
   --color-input: oklch(1 0 0 / 15%);
 
-  /* site additions: the "available" dot, GitHub stars, and Zuno's red */
+  /* site additions: the "available" dot and GitHub stars */
   --color-success: oklch(0.74 0.18 150);
   --color-star: oklch(0.86 0.16 88);
-  --color-glow-red: oklch(0.64 0.24 22);
 }
 
 /*

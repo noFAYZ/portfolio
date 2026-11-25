@@ -33,10 +33,11 @@ export const profile = {
   name: "Faizan Asad",
   /** shown with a live dot in the hero — set to "" to hide */
   status: "Available for work",
-  /** *word* renders as the serif italic accent */
-  headline: "Hey, I'm Faizan. I build fast, *well-crafted* web apps.",
-  location: "Islamabad",
+  /** *word* renders as the serif italic accent; the hero's cycling platform pill ends it */
+  headline: "I build fast, *well-crafted* apps for",
   timeZone: "Asia/Karachi",
+  /** the live site — canonical links and social cards are built on it */
+  url: "https://fayzan.xyz",
   email: "hello@fayzan.xyz",
   github: "https://github.com/noFAYZ",
   resume: Resume,
@@ -47,7 +48,6 @@ export const profile = {
 export const sections = [
   { id: "work", label: "Work" },
   { id: "writing", label: "Writing" },
-  { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ]
 

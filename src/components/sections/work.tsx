@@ -17,12 +17,7 @@ const year = (p: Project) => p.date.slice(0, 4)
 
 export function Work() {
   return (
-    <Section
-      id="work"
-      title="Selected *work*"
-      link={{ label: "All projects", to: "/projects" }}
-      wide
-    >
+    <Section id="work" link={{ label: "All projects", to: "/projects" }} wide>
       <div className="grid gap-3 sm:grid-cols-2">
         {showcase.map((project) => (
           <ProjectCard key={project.title} project={project} />

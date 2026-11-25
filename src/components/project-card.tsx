@@ -90,9 +90,6 @@ export function ProjectCard({ project }: { project: Project }) {
                 {compact.format(stars)}
               </a>
             )}
-            <span className="text-[13px] text-(--pastel-soft) tabular-nums">
-              {project.date.slice(0, 4)}
-            </span>
           </div>
           <p className="mt-0.5 truncate text-[13.5px] text-(--pastel-soft)">
             {project.description}
@@ -337,6 +334,11 @@ function Stage({ project, morph }: { project: Project; morph?: string }) {
           </Layer>
         </>
       )}
+
+      {/* the year, pinned over the screenshots' bottom-right corner */}
+      <span className="absolute right-4 bottom-4 z-20 inline-flex h-7 items-center rounded-full bg-(--pastel-bg) px-2.5 text-[11.5px] font-medium text-(--pastel-ink) tabular-nums shadow-sm">
+        {project.date.slice(0, 4)}
+      </span>
     </div>
   )
 }

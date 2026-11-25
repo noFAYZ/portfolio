@@ -13,17 +13,15 @@ export default function RootLayout() {
 
   return (
     <MotionConfig reducedMotion="user">
-      {/* one narrow column; the bottom padding keeps the footer clear of the dock */}
-      <div className="mx-auto max-w-[640px] px-5 pb-32">
+      {/* one narrow column */}
+      <div className="mx-auto max-w-[640px] px-5 pb-12">
         <Outlet />
 
         <footer className="text-muted-foreground mt-20 flex flex-wrap items-center justify-between gap-2 text-[13px]">
           <span>
             © {year} {profile.name}
           </span>
-          <span className="inline-flex items-baseline gap-1.5">
-            {profile.location} <LocalTime />
-          </span>
+          <LocalTime />
         </footer>
       </div>
 

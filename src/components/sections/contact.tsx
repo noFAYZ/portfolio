@@ -41,7 +41,7 @@ export function Contact() {
     <section
       id="contact"
       aria-label="Contact"
-      className="mt-24 scroll-mt-12 sm:mt-28"
+      className="mt-20 scroll-mt-24 sm:mt-24"
     >
       <ScrollReveal y={12} blur={6}>
         <div className="pastel tone-lilac rounded-2xl bg-(--pastel-bg) p-2 ring-1 ring-(--pastel-edge) ring-inset">
