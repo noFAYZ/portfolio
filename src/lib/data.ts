@@ -34,7 +34,7 @@ export const profile = {
   /** shown with a live dot in the hero — set to "" to hide */
   status: "Available for work",
   /** *word* renders as the serif italic accent; the hero's cycling platform pill ends it */
-  headline: "I build fast, *well-crafted* apps for",
+  headline: "Building fast, *well-crafted* apps for",
   timeZone: "Asia/Karachi",
   /** the live site — canonical links and social cards are built on it */
   url: "https://fayzan.xyz",
